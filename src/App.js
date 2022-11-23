@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Link as RRLink, Routes, Route } from "react-router-dom"
 
-import { Box, Button, ButtonGroup, Center, Flex, Heading, HStack, Link, VStack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, Spacer } from '@chakra-ui/react'
+import { Box, Button, ButtonGroup, Center, Flex, Heading, HStack, Image, Link, VStack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, Spacer } from '@chakra-ui/react'
 
 import Estates from './components/Estates';
 import Landing from './components/Landing';
@@ -13,11 +13,12 @@ function App() {
     <Router>
       <div className="App">
 
-        <Box bg='#FFFFFF' color='#38A169' p='6px' pt='12px'>
+        <Box bg='#FFFFFF' color='#38A169' p='6px' pt='12px'  borderWidth='1px' borderRadius='sm' pb='6px'>
           <Flex minWidth='max-content' alignItems='center' gap='2'>
+
             <Box p='2' pl='8px'>
               <Link as={RRLink} to="/">
-                <Heading fontWeight='600' fontSize='24px'>Bit Estate</Heading>
+                <Heading   fontWeight='600' fontSize='24px'>Bit Estate</Heading>
               </Link>
 
             </Box>
