@@ -1,10 +1,12 @@
-var BitFactory = artifacts.require("BitFactory");
+var Estate = artifacts.require("Estate");
+var EstateFactory = artifacts.require("EstateFactory");
 
 module.exports = async function(deployer, network, accounts) {
-  await deployer.deploy(BitFactory);
+  await deployer.deploy(Estate);
+  await deployer.deploy(EstateFactory);
 
-  const bit = await BitFactory.deployed();
-  var name = await bit.name();
+  const estateFactory = await EstateFactory.deployed();
+  var name = await estateFactory.name();
  
   console.log("contract name" + name);
 
