@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AspectRatio, Box, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Icon, Image, Link, VStack, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, SimpleGrid, Spacer } from '@chakra-ui/react'
+import { AspectRatio, Box, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Icon, Image, Link, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, VStack, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, SimpleGrid, Spacer } from '@chakra-ui/react'
 import { FaToilet } from "react-icons/fa";
 import { FaBath } from "react-icons/fa";
 import { BsFillHouseFill } from "react-icons/bs";
@@ -92,7 +92,7 @@ const Estates = () => {
                     <Container maxW="container.lg" centerContent py={[8, 18]} >
                         <SimpleGrid spacingX={10} spacingY={10} minChildWidth="450px" columns={2} row={2}>
 
-                            {estates.map(({tokenQuantity, tokenPrice, image, minimumHoldPeriod, holdPeriod, resellable, name, address,roi, legalDocuments, ipfs, toilets, baths, landSqm, parkingSpaces}) => (
+                            {estates.map(({ tokenQuantity, tokenPrice, image, minimumHoldPeriod, holdPeriod, resellable, name, address, roi, legalDocuments, ipfs, toilets, baths, landSqm, parkingSpaces }) => (
                                 <Card shadow="2xl"  >
                                     <CardBody >
                                         <Image
@@ -161,7 +161,7 @@ const Estates = () => {
                                             {resellable ?
                                                 <Text fontSize="md" color="primary.800" opacity="0.8">Token is resellable after a {minimumHoldPeriod} year minimum hold period</Text> :
                                                 <Text fontSize="md" color="primary.800" opacity="0.8">Token is not resellable</Text>
-                                             }
+                                            }
                                         </Stack>
                                     </CardBody>
                                     <Divider />
@@ -170,188 +170,21 @@ const Estates = () => {
                                             <Button variant='solid' colorScheme='green'>
                                                 Buy now
                                             </Button>
-                                            <Button variant='ghost' colorScheme='green'>
-                                                Add to cart
-                                            </Button>
+
+                                            <NumberInput defaultValue={1} min={1} max={10}>
+                                                <NumberInputField />
+                                                <NumberInputStepper>
+                                                    <NumberIncrementStepper />
+                                                    <NumberDecrementStepper />
+                                                </NumberInputStepper>
+                                            </NumberInput>
+
                                         </ButtonGroup>
+
                                     </CardFooter>
                                 </Card>
                             ))}
 
-                            {/* <Card shadow="2xl"  >
-                                <CardBody >
-                                    <Image
-                                        src={image6}
-                                        alt='Green double couch with wooden legs'
-                                        borderRadius='lg' size="100%" rounded="1rem" objectFit='cover' htmlWidth='600px' htmlHeight='700px'
-                                    />
-                                    <Stack mt='6' spacing='3'>
-                                        <Heading size='md'>Golden Experience Apartments</Heading>
-                                        <Text
-                                            fontSize="md" color="primary.800" opacity="0.8">
-                                            Lekki Phase 1, Lekki, Lagos
-                                        </Text>
-                                        <Text color='green.600' fontSize='md' fontWeight={500} pb='16px'>
-                                            Legal Documents: <Link color='black' ml='3px' href='https://ipfs.io/ipfs/QmYxnP59ccW4iseBzHK1VohjzFR65rGSy6h4HtFKJ66xA7' target='_blank'>http://bit.ly/3EIvKL</Link>
-                                        </Text>
-
-                                        <Flex >
-                                            <Stack>
-                                                <Center >
-                                                    <Icon as={FaToilet} />
-
-                                                </Center>
-                                                <Text>4 Toilets</Text>
-                                            </Stack>
-                                            <Spacer />
-                                            <Stack>
-                                                <Center >
-                                                    <Icon as={FaBath} />
-
-                                                </Center>
-                                                <Text>5 Baths</Text>
-                                            </Stack>
-                                            <Spacer />
-                                            <Stack>
-                                                <Center >
-                                                    <Icon as={BsFillHouseFill} />
-
-                                                </Center>
-                                                <Text>345 sqm </Text>
-                                            </Stack>
-                                            <Spacer />
-                                            <Stack>
-                                                <Center >
-                                                    <Icon as={AiFillCar} />
-
-                                                </Center>
-                                                <Text>4 Parking Spaces</Text>
-                                            </Stack>
-                                        </Flex>
-                                        <Text>
-                                            These houses are perfect for modern tropical spaces, baroque inspired
-                                            spaces, earthy toned spaces and for people who love a chic design with a
-                                            sprinkle of vintage design.
-                                        </Text>
-
-                                        <Text color='green.600' fontSize='2xl'>
-                                            ROI : 8%
-                                        </Text>
-                                        <HStack >
-                                            <Text fontWeight={500}>Token Quantity: 4000</Text>
-                                            <Spacer></Spacer>
-                                            <Text fontWeight={500}>Token Price: 2 MATIC</Text>
-                                        </HStack>
-                                    </Stack>
-                                </CardBody>
-                                <Divider />
-                                <CardFooter>
-                                    <ButtonGroup spacing='2'>
-                                        <Button variant='solid' colorScheme='green'>
-                                            Buy now
-                                        </Button>
-                                        <Button variant='ghost' colorScheme='green'>
-                                            Add to cart
-                                        </Button>
-                                    </ButtonGroup>
-                                </CardFooter>
-                            </Card>
-
-                            <Card shadow="2xl" >
-                                <CardBody>
-                                    <Image
-                                        src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                                        alt='Green double couch with wooden legs'
-                                        borderRadius='lg'
-                                    />
-                                    <Stack mt='6' spacing='3'>
-                                        <Heading size='md'>Living room Sofa</Heading>
-                                        <Text>
-                                            This sofa is perfect for modern tropical spaces, baroque inspired
-                                            spaces, earthy toned spaces and for people who love a chic design with a
-                                            sprinkle of vintage design.
-                                        </Text>
-                                        <Text color='blue.600' fontSize='2xl'>
-                                            $450
-                                        </Text>
-                                    </Stack>
-                                </CardBody>
-                                <Divider />
-                                <CardFooter>
-                                    <ButtonGroup spacing='2'>
-                                        <Button variant='solid' colorScheme='blue'>
-                                            Buy now
-                                        </Button>
-                                        <Button variant='ghost' colorScheme='blue'>
-                                            Add to cart
-                                        </Button>
-                                    </ButtonGroup>
-                                </CardFooter>
-                            </Card>
-
-                            <Card shadow="2xl">
-                                <CardBody>
-                                    <Image
-                                        src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                                        alt='Green double couch with wooden legs'
-                                        borderRadius='lg'
-                                    />
-                                    <Stack mt='6' spacing='3'>
-                                        <Heading size='md'>Living room Sofa</Heading>
-                                        <Text>
-                                            This sofa is perfect for modern tropical spaces, baroque inspired
-                                            spaces, earthy toned spaces and for people who love a chic design with a
-                                            sprinkle of vintage design.
-                                        </Text>
-                                        <Text color='blue.600' fontSize='2xl'>
-                                            $450
-                                        </Text>
-                                    </Stack>
-                                </CardBody>
-                                <Divider />
-                                <CardFooter>
-                                    <ButtonGroup spacing='2'>
-                                        <Button variant='solid' colorScheme='blue'>
-                                            Buy now
-                                        </Button>
-                                        <Button variant='ghost' colorScheme='blue'>
-                                            Add to cart
-                                        </Button>
-                                    </ButtonGroup>
-                                </CardFooter>
-                            </Card>
-
-                            <Card shadow="2xl">
-                                <CardBody>
-                                    <Image
-                                        src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                                        alt='Green double couch with wooden legs'
-                                        borderRadius='lg'
-                                    />
-                                    <Stack mt='6' spacing='3'>
-                                        <Heading size='md'>Living room Sofa</Heading>
-                                        <Text>
-                                            This sofa is perfect for modern tropical spaces, baroque inspired
-                                            spaces, earthy toned spaces and for people who love a chic design with a
-                                            sprinkle of vintage design.
-                                        </Text>
-                                        <Text color='blue.600' fontSize='2xl'>
-                                            $450
-                                        </Text>
-                                    </Stack>
-                                </CardBody>
-                                <Divider />
-                                <CardFooter>
-                                    <ButtonGroup spacing='2'>
-                                        <Button variant='solid' colorScheme='blue'>
-                                            Buy now
-                                        </Button>
-                                        <Button variant='ghost' colorScheme='blue'>
-                                            Add to cart
-                                        </Button>
-                                    </ButtonGroup>
-                                </CardFooter>
-                            </Card> */}
                         </SimpleGrid>
                     </Container>
                 </Box>
