@@ -125,13 +125,13 @@ const Landing = () => {
                     </Container>
                 </Box>
 
-                <Box alignItems='center' mt='24px' pb='64px'>
+                <Box alignItems='center' mt='48px' pb='64px' >
                     <Center>
                         <Heading size='lg'>Frequently Asked Questions</Heading>
                     </Center>
                 </Box>
 
-                <Flex>
+                <Flex >
                     <Box w='70px' h='10' bg='green.500' />
                     <Spacer />
                     <Accordion w='994px'>
@@ -207,7 +207,7 @@ const Landing = () => {
 
                 <Box bg="gray.200" mt={12}>
    
-		<Container maxW="container.lg">
+		<Container maxW="container.lg"  mt='90px'>
           <Flex py={6}>
             <Box>
               <Text>Polygon Africa Hackathon</Text>

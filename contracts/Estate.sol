@@ -4,10 +4,6 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
-interface IEstateFactory {
-
-}
-
 contract Estate is ERC1155{
 
     string public name = "Estate";
@@ -26,6 +22,7 @@ contract Estate is ERC1155{
     address payable propertyOperator;
 
     uint private constant tokenId = 0;
+    bytes private constant nullData = "0x00";
 
     mapping(address => uint) investorTokens;
     mapping(address => bool) isInvestor;
@@ -45,12 +42,12 @@ contract Estate is ERC1155{
     event FundsWithdrawn(
         uint indexed tokenAmount,
         uint indexed roi,
-        address indexed investorAddr,
+        address indexed investorAddr
     );  
 
     event EstateDeleted(
         uint indexed timeStamp,
-        address indexed operatorAddr,
+        address indexed operatorAddr
     );        
 
     error TokenNotAvailableToBeSold();
@@ -63,9 +60,9 @@ contract Estate is ERC1155{
     constructor (
         uint _tokenQuantity,
         uint _tokenPrice,
-        uint _Roi,
-        uint _holdPeriod,
-        uint _minimumHoldPeriod,
+        uint _roi,
+        uint _holdPeriodInYears,
+        uint _minimumHoldPeriodInYears,
         uint _propertyValue,
         bool _isTokenResellable,
         string memory _legalDocuments,
@@ -73,17 +70,30 @@ contract Estate is ERC1155{
         address payable _propertyOperator
     ) ERC1155(_legalDocuments) payable{
 
-        holdPeriodTimeStamp = calcYears(_holdPeriod);
-        minimumHoldPeriodTimeStamp = calcYears(_minimumHoldPeriod);
+        tokenQuantity = _tokenQuantity;
+        tokenPrice = _tokenPrice;
+        roi = _roi;
+        holdPeriodInYears = _holdPeriodInYears;
+        minimumHoldPeriodInYears = _minimumHoldPeriodInYears;
+
+        holdPeriodTimeStamp = calcYears(_holdPeriodInYears);
+        minimumHoldPeriodTimeStamp = calcYears(_minimumHoldPeriodInYears);
+
+        propertyValue = _propertyValue;
+        isTokenResellable = _isTokenResellable;
+        legalDocuments = _legalDocuments;
+        propertyName = _propertyName;
+        propertyOperator = _propertyOperator;
 
     }
 
     receive() external payable {}
 
-    function buyToken(uint amount) public returns(bool) {
+    function buyToken(uint amount) external payable returns(bool) {
         require(block.timestamp < minimumHoldPeriodTimeStamp, "tokens not available");
         require(amount <= tokenQuantity, "quantity exceeded");
         require(!isInvestor[msg.sender], "already an investor");
+        require(msg.sender != propertyOperator);
         require(msg.value >= amount * tokenPrice);
 
         uint totalPrice = amount * tokenPrice;
@@ -94,15 +104,23 @@ contract Estate is ERC1155{
         isInvestor[msg.sender] = true;
         investorTokens[msg.sender] = amount;
         allInvestors.push(msg.sender);
+
+        // erc1155 
+        _mint(msg.sender, tokenId, amount, nullData);
         
         emit TokenBought(amount, msg.sender);
+
+        return true;
     }
 
-    function sellToken(uint amount, address _to) public {
+    function sellToken(uint amount, address _to) external payable {
         require(tokenQuantity == 0, "resell not possible till all tokens are exhausted");
         require(isTokenResellable, "not able to be sold");
         require(block.timestamp >= minimumHoldPeriodTimeStamp, "tokens not available to be sold yet");
         require(!isInvestor[_to], "already an investor");
+        require(_to != propertyOperator, "invalid address");
+        require(_to != address(0), "invalid address");
+        require(_to != msg.sender, "invalid address");
         require(amount > 0);
         require(amount <= investorTokens[msg.sender], "invalid amount");
 
@@ -112,12 +130,18 @@ contract Estate is ERC1155{
             isInvestor[_to] = true;
             investorTokens[_to] = amount;
             allInvestors.push(_to);
+
+            // erc1155 
+            safeTransferFrom(msg.sender, _to, tokenId, amount, nullData);
         } else {
             investorTokens[msg.sender] -= amount;
 
             isInvestor[_to] = true;
             investorTokens[_to] = amount;
-            allInvestors.push(_to);            
+            allInvestors.push(_to);
+
+            // erc1155 
+            safeTransferFrom(msg.sender, _to, tokenId, amount, nullData);                        
         }
 
         emit TokenSold(amount, msg.sender, _to);
@@ -138,11 +162,14 @@ contract Estate is ERC1155{
         if(success){
             emit FundsWithdrawn(tokenAmount, payout, msg.sender);
             clearInvestorInfo();
+
+            // erc1155 
+            _burn(msg.sender, tokenId, balanceOf(msg.sender, tokenId));            
         }
 
         if(numberOfInvestors() == 0) {
-            selfdestruct(operator);
-            emit EstateDeleted(block.timeStamp, propertyOperator);
+            selfdestruct(propertyOperator);
+            emit EstateDeleted(block.timestamp, propertyOperator);
         }
     }
 
@@ -161,11 +188,11 @@ contract Estate is ERC1155{
         require(numberOfInvestors() == 0, "");
         require(block.timestamp >= holdPeriodTimeStamp);
 
-        selfdestruct(operator);
-        emit EstateDeleted(block.timeStamp, propertyOperator);
+        selfdestruct(propertyOperator);
+        emit EstateDeleted(block.timestamp, propertyOperator);
     }
 
-    function tokenBalance(address _addr) public returns(uint){
+    function tokenBalance(address _addr) public view returns(uint){
         return investorTokens[_addr];
     }
 
@@ -173,12 +200,12 @@ contract Estate is ERC1155{
         return allInvestors.length;
     }
 
-    function calcYears(uint year) private returns(uint timeStamp){
+    function calcYears(uint year) private view returns(uint timeStamp){
         return (year * 52 weeks) + block.timestamp;
     }
 
     function removeInvestorFromArray(uint index) private {
-        allInvestors[index] = allInvestors[length - 1];
+        allInvestors[index] = allInvestors[allInvestors.length - 1];
         allInvestors.pop();
     }
 
@@ -194,8 +221,12 @@ contract Estate is ERC1155{
         }        
     }
 
-    function isTokenResellable() external view returns(bool){
+    function checkIfTokenResellable() external view returns(bool){
         return isTokenResellable;
+    }
+
+    function getOperator() external view returns(address) {
+        return propertyOperator;
     }
 
 }

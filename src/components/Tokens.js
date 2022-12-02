@@ -1,10 +1,14 @@
 import React from 'react'
 
-import { Box, Button, ButtonGroup, Center, Flex, Heading, HStack, Link, VStack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, Spacer } from '@chakra-ui/react'
+import { AspectRatio, Box, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Image, Link, VStack, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, SimpleGrid, Spacer } from '@chakra-ui/react'
 
 const Tokens = () => {
   return (
-    <div>Tokens</div>
+    <div>
+      <Box>
+      
+      </Box>
+    </div>
   )
 }
 
