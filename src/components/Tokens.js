@@ -17,7 +17,6 @@ const Tokens = () => {
                   <Image src={image} size="100%" rounded="1rem" objectFit='cover' htmlWidth='200px' htmlHeight='200px' />
                 </Box>
               </Center>
-              {/* <Heading my='16px'>You do not own any tokens head here for some</Heading> */}
               <Link as={RRLink} to="/estates">
               <Heading my='16px'>You do not own any tokens yet, click me for some 😉</Heading>
               </Link>

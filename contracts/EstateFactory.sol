@@ -4,6 +4,10 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "./Estate.sol";
 
+/// @title Estate Factory Contract
+/// @author Odubawo Eniayo
+/// @notice A contract to create estate contract instances
+
 contract EstateFactory {
 
     string public name = "Estate Factory";
@@ -32,6 +36,18 @@ contract EstateFactory {
 
     error InsufficentCharacters(string str);
 
+    /// @notice Create the estate contract using conditions specified by the operator
+    /// @param _tokenQuantity The number of tokens available for sale
+    /// @param _tokenPrice Price of a token
+    /// @param _roi return on investment
+    /// @param _holdPeriodInYears Years for the payback period of your investment
+    /// @param _minimumHoldPeriodInYears Years after which tokens can be resold to other investors
+    /// @param _propertyValue Value of listed property
+    /// @param _isTokenResellable Can the token be resold to other investors
+    /// @param _legalDocuments All required documents to prove ownership and validity of property
+    /// @param _propertyName The name of the property
+    /// @param _propertyOperator The address of the property operator
+    /// @return Address of the created contract
     function createEstate(
         uint _tokenQuantity,
         uint _tokenPrice,
@@ -99,6 +115,7 @@ contract EstateFactory {
         return address(estate);
     }
 
+    /// @notice Returns total number of created estates contracts
     function getNumberOfEstates() external view returns(uint) {
         return allEstates.length;
     }

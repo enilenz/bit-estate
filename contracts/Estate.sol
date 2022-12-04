@@ -4,6 +4,10 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
+/// @title Estate Contract
+/// @author Odubawo Eniayo
+/// @notice A contract to facilitate buying and selling of property backed tokens. The erc1155 token standard is used to mimic the behaviour of security tokens
+
 contract Estate is ERC1155{
 
     string public name = "Estate";
@@ -57,6 +61,16 @@ contract Estate is ERC1155{
         _;
     }
 
+    /// @param _tokenQuantity The number of tokens available for sale
+    /// @param _tokenPrice Price of a token
+    /// @param _roi return on investment
+    /// @param _holdPeriodInYears Years for the payback period of your investment
+    /// @param _minimumHoldPeriodInYears Years after which tokens can be resold to other investors
+    /// @param _propertyValue Value of listed property
+    /// @param _isTokenResellable Can the token be resold to other investors
+    /// @param _legalDocuments All required documents to prove ownership and validity of property
+    /// @param _propertyName The name of the property
+    /// @param _propertyOperator The address of the property operator
     constructor (
         uint _tokenQuantity,
         uint _tokenPrice,
@@ -89,16 +103,14 @@ contract Estate is ERC1155{
 
     receive() external payable {}
 
+    /// @notice Allows investors buy property tokens
+    /// @param amount Number of tokens investor wants to buy 
     function buyToken(uint amount) external payable returns(bool) {
-        require(block.timestamp < minimumHoldPeriodTimeStamp, "tokens not available");
         require(amount <= tokenQuantity, "quantity exceeded");
         require(!isInvestor[msg.sender], "already an investor");
         require(msg.sender != propertyOperator);
         require(msg.value >= amount * tokenPrice);
 
-        uint totalPrice = amount * tokenPrice;
-
-        require(msg.value >= totalPrice);
 
         tokenQuantity -= amount;
         isInvestor[msg.sender] = true;
@@ -113,6 +125,9 @@ contract Estate is ERC1155{
         return true;
     }
 
+    /// @notice Allows investors sell tokens to new investors if the token is resellable
+    /// @param amount Number of tokens investor wants to sell
+    /// @param _to Address of new investor 
     function sellToken(uint amount, address _to) external payable {
         require(tokenQuantity == 0, "resell not possible till all tokens are exhausted");
         require(isTokenResellable, "not able to be sold");
@@ -147,6 +162,7 @@ contract Estate is ERC1155{
         emit TokenSold(amount, msg.sender, _to);
     }
 
+    /// @notice Allows investors withdraw their investment income
     function withdrawFunds() public {
         require(block.timestamp >= holdPeriodTimeStamp);
         require(isInvestor[msg.sender], "not an investor");
@@ -173,10 +189,12 @@ contract Estate is ERC1155{
         }
     }
 
+    /// @notice Returns the native token balance of the contract
     function getBalance() external view onlyOperator returns(uint) {
         return address(this).balance;
     }
 
+    /// @notice Function the operator calls after the all tokens have been called in order to fund the project
     function withDrawInvestments() external onlyOperator {
        require(tokenQuantity == 0, "cannot withdraw till all tokens are sold");
 
@@ -184,6 +202,7 @@ contract Estate is ERC1155{
        require(success, "Transfer failed!");
     }
 
+    /// @notice Function the operator calls after all investors have been payed out. 
     function deleteEstate() external onlyOperator {
         require(numberOfInvestors() == 0, "");
         require(block.timestamp >= holdPeriodTimeStamp);
@@ -192,23 +211,28 @@ contract Estate is ERC1155{
         emit EstateDeleted(block.timestamp, propertyOperator);
     }
 
+    /// @notice Returns the property token balance of an investor
     function tokenBalance(address _addr) public view returns(uint){
         return investorTokens[_addr];
     }
 
+    /// @notice Returns total number of investors
     function numberOfInvestors() public view returns(uint){
         return allInvestors.length;
     }
 
+    /// @notice Utility function to calculate timestamp given an integer number in years
     function calcYears(uint year) private view returns(uint timeStamp){
         return (year * 52 weeks) + block.timestamp;
     }
 
+    /// @notice Utility function to remove an investor from all relevant data strucures
     function removeInvestorFromArray(uint index) private {
         allInvestors[index] = allInvestors[allInvestors.length - 1];
         allInvestors.pop();
     }
-
+    /// @notice Utility function toset investors tokens to zero and update relevant data structures
+    /// @dev This function is called if an investor sells all their tokens or calls withDrawFunds
     function clearInvestorInfo() private {
         isInvestor[msg.sender] = false;
         investorTokens[msg.sender] = 0;
@@ -221,10 +245,12 @@ contract Estate is ERC1155{
         }        
     }
 
+    /// @notice Checks if a token is resellable
     function checkIfTokenResellable() external view returns(bool){
         return isTokenResellable;
     }
 
+    /// @notice Gets contract operator address
     function getOperator() external view returns(address) {
         return propertyOperator;
     }

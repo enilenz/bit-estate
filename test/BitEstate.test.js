@@ -1,5 +1,5 @@
 const { time } = require('@openzeppelin/test-helpers'); 
-const { expect } = require('chai');
+const { expect, assert } = require('chai');
 
 const Estate = artifacts.require("Estate");
 const EstateFactory = artifacts.require("EstateFactory");
@@ -9,7 +9,7 @@ function tokens(n){
 }
 
 contract("BitEstate", async(accounts) => {
-    let estateFactory, operator1, operator2;
+    let estateFactory, operator1, operator2, investor1, investor2;
     let estate, estateAddress;
 
     before(async() => {
@@ -17,6 +17,8 @@ contract("BitEstate", async(accounts) => {
          estateFactoryAddress = estateFactory.address;
          operator1 = accounts[1];
          operator2 = accounts[2];
+         investor1 = accounts[3];
+         investor2 = accounts[4];
 
          estate = await Estate.deployed(); 
          estateAddress = estate.address;  
@@ -81,9 +83,11 @@ contract("BitEstate", async(accounts) => {
     });
 
     describe("Estate",  async() => {
-        it("should buy token", async() => {
-
+        it("should return token quantity", async() => {
+            const token = await estate.tokenQuantity();
+            assert.equal(100, token.toString());
         });
+
     });
 
     
