@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Link as RRLink, Routes, Route } from "react-router-dom"
 
-import { AspectRatio, Box, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Image, Link, VStack, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, SimpleGrid, Spacer } from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Image, Link,  Stack, } from '@chakra-ui/react'
 import image from '../assets/bitcoin.png';
 
 const Tokens = () => {

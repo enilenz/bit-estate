@@ -11,6 +11,8 @@
 # production
 /build
 
+/src/contract.abi.json
+
 # misc
 .DS_Store
 .env.local

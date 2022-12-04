@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { AspectRatio, Box, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Icon, Image, Link, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, VStack, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, SimpleGrid, Spacer } from '@chakra-ui/react'
+import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription, AspectRatio, Box, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Icon, Image, Link, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, VStack, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, SimpleGrid, Spacer
+} from '@chakra-ui/react'
 import { FaToilet } from "react-icons/fa";
 import { FaBath } from "react-icons/fa";
 import { BsFillHouseFill } from "react-icons/bs";
@@ -11,7 +16,18 @@ import image7 from '../assets/prop7.jpg';
 import image8 from '../assets/prop8.jpg';
 import image9 from '../assets/prop9.jpg';
 
-const Estates = () => {
+const Estates = ({ buyToken }) => {
+    const [tokenAmount, setTokenAmount] = useState(1);
+    const [isTokenBought, setTokenBought] = useState(false);
+
+    async function finalBuy(id) {
+
+        buyToken(tokenAmount, id);
+
+        setTokenBought(true)
+
+    }
+
 
     const estates = [
         {
@@ -24,12 +40,13 @@ const Estates = () => {
             'parkingSpaces': 5,
             'roi': 6,
             'tokenQuantity': 4000,
-            'tokenPrice': 5,
+            'tokenPrice': 0.1,
             'image': image6,
             'ipfs': 'https://ipfs.io/ipfs/QmZ1zJbWugFE8hE81pXTbhiBrXezyYZSKCfrMgWjZf4VWN',
             'resellable': true,
             'minimumHoldPeriod': 2,
-            'holdPeriod': 5
+            'holdPeriod': 5,
+            'id': 1
         },
         {
             'name': 'Brown Hill ',
@@ -41,12 +58,13 @@ const Estates = () => {
             'parkingSpaces': 4,
             'roi': 10,
             'tokenQuantity': 1000,
-            'tokenPrice': 2,
+            'tokenPrice': 0.1,
             'image': image7,
             'ipfs': 'https://ipfs.io/ipfs/QmSdTxL3iocdyFdErWaKpXtoHJhBF6yMs54MCPzR1qtFed',
             'resellable': true,
             'minimumHoldPeriod': 2,
-            'holdPeriod': 5
+            'holdPeriod': 5,
+            'id': 2
         },
         {
             'name': 'Northern Lights',
@@ -58,12 +76,13 @@ const Estates = () => {
             'parkingSpaces': 4,
             'roi': 13,
             'tokenQuantity': 500,
-            'tokenPrice': 1,
+            'tokenPrice': 0.1,
             'image': image8,
             'ipfs': 'https://ipfs.io/ipfs/QmTxLmF8otyVJzNnMLcYDEyTUkoJpb87XFB6bCApJu3E4z',
             'resellable': true,
             'minimumHoldPeriod': 2,
-            'holdPeriod': 5
+            'holdPeriod': 5,
+            'id': 3
         },
         {
             'name': 'Clear Stone Apartments',
@@ -75,12 +94,13 @@ const Estates = () => {
             'parkingSpaces': 5,
             'roi': 8,
             'tokenQuantity': 2500,
-            'tokenPrice': 2,
+            'tokenPrice': 0.1,
             'image': image9,
             'ipfs': 'https://ipfs.io/ipfs/QmT2h75dGbEKVFyDpeYRQQKBiGn1cHNsm7a4bagswqXGYj',
             'resellable': false,
             'minimumHoldPeriod': 2,
-            'holdPeriod': 5
+            'holdPeriod': 5,
+            'id': 4
         }
     ]
 
@@ -92,7 +112,7 @@ const Estates = () => {
                     <Container maxW="container.lg" centerContent py={[8, 18]} >
                         <SimpleGrid spacingX={10} spacingY={10} minChildWidth="450px" columns={2} row={2}>
 
-                            {estates.map(({ tokenQuantity, tokenPrice, image, minimumHoldPeriod, holdPeriod, resellable, name, address, roi, legalDocuments, ipfs, toilets, baths, landSqm, parkingSpaces }) => (
+                            {estates.map(({ tokenQuantity, tokenPrice, image, id, minimumHoldPeriod, holdPeriod, resellable, name, address, roi, legalDocuments, ipfs, toilets, baths, landSqm, parkingSpaces }) => (
                                 <Card shadow="2xl"  >
                                     <CardBody >
                                         <Image
@@ -162,16 +182,17 @@ const Estates = () => {
                                                 <Text fontSize="md" color="primary.800" opacity="0.8">Token is resellable after a {minimumHoldPeriod} year minimum hold period</Text> :
                                                 <Text fontSize="md" color="primary.800" opacity="0.8">Token is not resellable</Text>
                                             }
+
                                         </Stack>
                                     </CardBody>
                                     <Divider />
                                     <CardFooter>
                                         <ButtonGroup spacing='2'>
-                                            <Button variant='solid' colorScheme='green'>
+                                            <Button variant='solid' colorScheme='green' onClick={() => finalBuy(id)}>
                                                 Buy now
                                             </Button>
 
-                                            <NumberInput defaultValue={1} min={1} max={10}>
+                                            <NumberInput defaultValue={1} min={1} max={10} onChange={(valueString) => setTokenAmount(valueString)}>
                                                 <NumberInputField />
                                                 <NumberInputStepper>
                                                     <NumberIncrementStepper />

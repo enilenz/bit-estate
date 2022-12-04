@@ -206,19 +206,19 @@ const Landing = () => {
                 </Flex>
 
                 <Box bg="gray.200" mt={12}>
-   
-		<Container maxW="container.lg"  mt='90px'>
-          <Flex py={6}>
-            <Box>
-              <Text>Polygon Africa Hackathon</Text>
 
-              <Text>Made by Eniayo</Text>
-            </Box>
+                    <Container maxW="container.lg" mt='90px'>
+                        <Flex py={6}>
+                            <Box>
+                                <Text>Polygon Africa Hackathon</Text>
 
-          </Flex>
-        </Container>
-      </Box>
-                
+                                <Text>Made by Eniayo</Text>
+                            </Box>
+
+                        </Flex>
+                    </Container>
+                </Box>
+
 
             </Box>
         </div>

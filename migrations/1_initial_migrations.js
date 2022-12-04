@@ -10,13 +10,4 @@ module.exports = async function(deployer, network, accounts) {
   console.log("contract name: " + name);
 
 
-
-  // var estate1 = await estateFactory.createEstate();
-  // var estate2 = await estateFactory.createEstate();
-  // var estate3 = await estateFactory.createEstate();
-  // var estate4 = await estateFactory.createEstate();
- 
-
-
-
 };
