@@ -1,14 +1,17 @@
-# Getting Started with Create React App
+# BitEstate
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+BitEstate is a platform for investing in tokenized real estate opportunities.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+react, solidity, truffle, ethers.js, ipfs, pinata
 
-### `npm start`
+## Use of Product
+BitEstate offers several services to investor which include but are not limited to
+- 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Brief Description
+BitEstate is an online platform that offers tokenized real estate investment opportunites to its customers.
+Operators are able to put up their properties for sell after a vetting process as well as the required legal documents that show proof of ownership
 
-ipfs solidity web3 polygon testnet mumbai chakra-ui js truffle ganache chai openzepplin/contracts openzepplin/test-helpers
+
