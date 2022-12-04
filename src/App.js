@@ -3,12 +3,7 @@ import { BrowserRouter as Router, Link as RRLink, Routes, Route } from "react-ro
 import { ethers } from "ethers";
 import { BigNumber } from 'ethers';
 
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription, Box, Button, Flex, Heading, HStack, Link, Text, Spacer
-} from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, HStack, Link, Text, Spacer} from '@chakra-ui/react'
 
 import Estates from './components/Estates';
 import Landing from './components/Landing';
@@ -42,11 +37,9 @@ function App() {
         return;
       }
 
-      // Fancy method to request access to account.
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
       setIsWalletConnected(true);
 
-      // Boom! This should print out public address once we authorize Metamask.
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]);
 
@@ -54,7 +47,6 @@ function App() {
       setSigner(provider.getSigner());
 
       const balance = await provider.getBalance(currentAccount);
-      //ethers.utils.formatEther(balance);
       const formatBalance = await ethers.utils.formatEther(balance);
       setAccountBalance(formatBalance);
 
@@ -121,7 +113,7 @@ function App() {
         });
 
         setSuccessful(true)
-        // setSuccessful(false)
+ 
         window.alert("Tokens bought successfully")
 
       } catch (error) {
@@ -132,27 +124,6 @@ function App() {
     }
   }
 
-  function CompExample() {
-    return (
-      <Alert
-        status='success'
-        variant='subtle'
-        flexDirection='column'
-        alignItems='center'
-        justifyContent='center'
-        textAlign='center'
-        height='200px'
-      >
-        <AlertIcon boxSize='40px' mr={0} />
-        <AlertTitle mt={4} mb={1} fontSize='lg'>
-          Application submitted!
-        </AlertTitle>
-        <AlertDescription maxWidth='sm'>
-          Thanks for submitting your application. Our team will get back to you soon.
-        </AlertDescription>
-      </Alert>
-    )
-  }
 
   return (
     <Router>
@@ -188,12 +159,6 @@ function App() {
 
           </Flex>
         </Box>
-        {/* <Button size='md' colorScheme='red' mt='24px' >
-          {Successful && 'Successful'}
-        </Button>
-
-        {Successful && <Button></Button>} */}
-
 
         <Routes>
 

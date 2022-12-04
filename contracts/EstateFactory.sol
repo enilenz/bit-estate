@@ -48,6 +48,7 @@ contract EstateFactory {
     /// @param _propertyName The name of the property
     /// @param _propertyOperator The address of the property operator
     /// @return Address of the created contract
+    /// @dev This parameters in the function allows investor tailor their tokens to their unique needs
     function createEstate(
         uint _tokenQuantity,
         uint _tokenPrice,

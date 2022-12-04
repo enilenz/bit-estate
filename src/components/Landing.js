@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Link as RRLink, Routes, Route } from "react-router-dom"
 
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, AspectRatio, Box, Button, ButtonGroup, Center, Container, Flex, Heading, HStack, Image, Link, LinkBox, LinkOverlay, VStack, SimpleGrid, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, Spacer } from '@chakra-ui/react'
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Button, Center, Container, Flex, Heading, Image, Link, SimpleGrid, Stack, Text, Spacer } from '@chakra-ui/react'
 
 import image from '../assets/rimage.jpg';
 
@@ -9,37 +9,35 @@ const Landing = () => {
 
     const highlights = [
         {
-            icon: '✨',
-            title: 'No-code',
+            icon: '🏡 ',
+            title: 'Tokenized Real Estate',
             description:
-                "We are No-Code friendly. There is no coding required to get started. Launchman connects with Airtable and lets you generate a new page per row. It's just that easy!",
+                "Real world properties are represented in a decentralized manner in the form of tokens. Each token is unique and can be bought and sold in a transparent manner. ",
         },
         {
-            icon: '🎉',
-            title: 'Make Google happy',
+            icon: '💳 ',
+            title: 'Additional sources of funding',
             description:
-                "We render all our pages server-side; when Google's robots come to index your site, the page does not have to wait for JS to be fetched. This helps you get ranked higher.",
+                "Tokenization opens up quality real estate to more investors and at smaller investment amounts. Investors are able diversify their property investments geographically from anywhere across the world.",
         },
         {
-            icon: '😃',
-            title: 'Rapid experimenting',
+            icon: '🤖 ',
+            title: 'Improved efficiency through automation',
             description:
-                "You don't have to wait hours to update your hard-coded landing pages. Figure out what resonates with your customers the most and update the copy in seconds",
+                "Smart contracts can automate compliance with securities regulations, tailor digital assets directly according to investor demands as well as increase the speed of creating, issuing, and exchanging assets.",
         },
         {
-            icon: '🔌',
-            title: 'Rapid experimenting',
+            icon: '🔍 ',
+            title: 'Improved transparency and access to records',
             description:
-                "You don't have to wait hours to update your hard-coded landing pages. Figure out what resonates with your customers the most and update the copy in seconds",
+                "Blockchain technology enables transaction and property ownership records to be more accessible. This helps in facilitating market transactions and increasing investor confidence.",
         },
     ]
 
     return (
         <div>
-            {/* <Box bg='#FFFFFF' color='#38A169' maxW='994px' margin='auto' borderRadius='12px' textAlign='center'  > */}
 
             <Box mt='54px'>
-
                 <Flex
                     align="center"
                     justify="space-around"
@@ -63,7 +61,7 @@ const Landing = () => {
                                 color="primary.800"
                                 textAlign={["center", "center", "left", "left"]}
                             >
-                                Own a brick in the estate baby come over
+                                Come own a brick in the estate
                             </Heading>
                             <Heading
                                 as="h2"
@@ -74,7 +72,7 @@ const Landing = () => {
                                 lineHeight={1.5}
                                 textAlign={["center", "center", "left", "left"]}
                             >
-                                Buy now sell later or some other bs
+                                Tokenized real estate opportunites
                             </Heading>
                             <Link as={RRLink} to="/estates">
                                 <Button
@@ -95,12 +93,11 @@ const Landing = () => {
                                 color="primary.800"
                                 opacity="0.6"
                             >
-                                No credit card required.
+                                Start on a path to building wealth.
                             </Text>
                         </Stack>
                     </Box>
 
-                    {/* boxSize='200px' */}
                     <Box >
                         <Image src={image} size="100%" rounded="1rem" shadow="2xl" objectFit='cover' htmlWidth='600px' htmlHeight='700px' />
                     </Box>
@@ -116,7 +113,7 @@ const Landing = () => {
 
                                     <Text fontWeight={500}>{title}</Text>
 
-                                    <Text color="gray.500" mt={4}>
+                                    <Text color="gray.700" mt={4}>
                                         {description}
                                     </Text>
                                 </Box>
@@ -139,65 +136,54 @@ const Landing = () => {
                             <h2>
                                 <AccordionButton>
                                     <Box flex='1' textAlign='left' fontWeight='bold'>
-                                        Section 1 title
+                                        What is digital asset tokenization?
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                             </h2>
                             <AccordionPanel pb={8}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                                Tokenization describes the process of transforming traditional equity holdings into digital shares. These blockchain based digital "tokens" allow investors to view detailed information about their holdings, and make it possible to buy, sell, and transfer private assets online.
                             </AccordionPanel>
                         </AccordionItem>
+                        <AccordionItem>
+                            <h2>
+                                <AccordionButton>
+                                    <Box flex='1' textAlign='left' fontWeight='bold'>
+                                        What are the costs associated with tokenization?
+                                    </Box>
+                                    <AccordionIcon />
+                                </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={8}>
+                                Cost of tokenization varies based on asset size and requirements. Tokenization is a small cost compared to the fees associated with a typical capital raise or real estate transaction. As such, tokenization is designed to be a very small addition to your asset's total cost of ownership.
+                            </AccordionPanel>
+                        </AccordionItem>
+
 
                         <AccordionItem>
                             <h2>
                                 <AccordionButton>
                                     <Box flex='1' textAlign='left' fontWeight='bold'>
-                                        Section 2 title
+                                        Who verifies the integrity of digital deals and assets?
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                             </h2>
                             <AccordionPanel pb={8}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                                As with a traditional offering, this is the investor's responsibility. The Issuer must provide necessary documentation for asset due diligence. The addition of a digital asset tokenization does not change the investor requirements.
                             </AccordionPanel>
                         </AccordionItem>
                         <AccordionItem>
                             <h2>
                                 <AccordionButton>
                                     <Box flex='1' textAlign='left' fontWeight='bold'>
-                                        Section 3 title
+                                        Who will be able to buy my tokenized real estate?
                                     </Box>
                                     <AccordionIcon />
                                 </AccordionButton>
                             </h2>
                             <AccordionPanel pb={8}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
-                            </AccordionPanel>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton>
-                                    <Box flex='1' textAlign='left' fontWeight='bold'>
-                                        Section 4 title
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={8}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.
+                                Only investors that are accredited and approved by the platform will be able to invest in tokenized real estate. BitEstate integrates KYC (know your customer), AML (anti-money laundering), and Accreditation services so all potential investors are properly verified. This process is done to ensure the online investment practice is regulation complaint.
                             </AccordionPanel>
                         </AccordionItem>
                     </Accordion>
@@ -210,9 +196,10 @@ const Landing = () => {
                     <Container maxW="container.lg" mt='90px'>
                         <Flex py={6}>
                             <Box>
-                                <Text>Polygon Africa Hackathon</Text>
 
-                                <Text>Made by Eniayo</Text>
+
+                                <Text>Made by Eniayo Odubawo </Text>
+                                <Link target='_blank' href='https://github.com/enilenz/' color='green'>Check my Github.</Link>
                             </Box>
 
                         </Flex>

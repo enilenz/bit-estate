@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 
-import {
-    Alert,
-    AlertIcon,
-    AlertTitle,
-    AlertDescription, AspectRatio, Box, Button, ButtonGroup, Card, CardHeader, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Icon, Image, Link, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, VStack, Stack, Tabs, TabList, Tab, TabPanel, TabPanels, Text, SimpleGrid, Spacer
-} from '@chakra-ui/react'
+import { Box, Button, ButtonGroup, Card, CardBody, CardFooter, Center, Container, Divider, Flex, Heading, HStack, Icon, Image, Link, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Stack, Text, SimpleGrid, Spacer } from '@chakra-ui/react'
 import { FaToilet } from "react-icons/fa";
 import { FaBath } from "react-icons/fa";
 import { BsFillHouseFill } from "react-icons/bs";
@@ -62,7 +57,7 @@ const Estates = ({ buyToken }) => {
             'image': image7,
             'ipfs': 'https://ipfs.io/ipfs/QmSdTxL3iocdyFdErWaKpXtoHJhBF6yMs54MCPzR1qtFed',
             'resellable': true,
-            'minimumHoldPeriod': 2,
+            'minimumHoldPeriod': 3,
             'holdPeriod': 5,
             'id': 2
         },
@@ -108,7 +103,6 @@ const Estates = ({ buyToken }) => {
         <div>
             <Box>
                 <Box borderRadius='12px'>
-                    {/* spacingX={10} spacingY={20} minChildWidth="300px" */}
                     <Container maxW="container.lg" centerContent py={[8, 18]} >
                         <SimpleGrid spacingX={10} spacingY={10} minChildWidth="450px" columns={2} row={2}>
 
@@ -192,7 +186,7 @@ const Estates = ({ buyToken }) => {
                                                 Buy now
                                             </Button>
 
-                                            <NumberInput defaultValue={1} min={1} max={10} onChange={(valueString) => setTokenAmount(valueString)}>
+                                            <NumberInput keepWithinRange={true} defaultValue={1} min={1} max={10} onChange={(valueString) => setTokenAmount(valueString)}>
                                                 <NumberInputField />
                                                 <NumberInputStepper>
                                                     <NumberIncrementStepper />
