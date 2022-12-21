@@ -2,6 +2,9 @@
 
 BitEstate is a platform for investing in tokenized real estate opportunities.
 
+## Live link
+https://bit-estate.netlify.app
+
 ## Tech Stack
 
 react, solidity, truffle, ethers.js, ipfs, pinata
